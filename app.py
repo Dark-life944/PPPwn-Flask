@@ -1,30 +1,15 @@
 # -*- coding: utf-8 -*-
 # app.py
 
-from flask import Flask, request, render_template_string, jsonify
+from flask import Flask, request, render_template, jsonify
 import subprocess
 
 app = Flask(__name__)
 
-# HTML template para a interface com o botão
-HTML = """
-<html>
-<head>
-<title>PPPwn-Flask Jailbreak</title>
-</head>
-<body>
-    <h1>PPPwn Jailbreak Interface</h1>
-    <form action="/start_exploit" method="post">
-        <button type="submit">JAILBREAK!</button>
-    </form>
-</body>
-</html>
-"""
-
 @app.route('/')
 def home():
     # Retorna a página HTML com o botão
-    return render_template_string(HTML)
+     return render_template('index.html')
 
 @app.route('/start_exploit', methods=['POST'])
 def start_exploit():
@@ -45,5 +30,5 @@ def start_exploit():
         return jsonify({'status': 'error', 'output': e.stderr}), 500
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=3000, debug=True)
+    app.run(host='0.0.0.0', debug=False)
 
